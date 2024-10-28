@@ -1,6 +1,7 @@
 const { decrypt } = require("dotenv");
 const encrypt = require("../MiddleWare/encrypt");
 const user = require("../Schemas/userSchema");
+const jwt = require('jsonwebtoken')
 
 const bcrypt = require('bcrypt')
 exports.userLogin=async(request,response)=>{
@@ -12,7 +13,8 @@ exports.userLogin=async(request,response)=>{
         if(existingUser){
            const isValidUser = await bcrypt.compare(userPassword,existingUser.userPassword)
           if(isValidUser){
-            response.status(200).json({message:'Logged in Successfully',data:existingUser})
+            const token = jwt.sign(existingUser.userEmail,process.env.JWT_SECRET_KEY)
+            response.status(200).json({message:'Logged in Successfully',token:token})
           } else{
             response.status(401).json({message:'Invalid Credentials'})
           }   
@@ -22,6 +24,8 @@ exports.userLogin=async(request,response)=>{
         }
         
     } catch (error) {
+        console.log(error);
+        
         response.status(500).json({message:'server error',error})
     }
 }
