@@ -20,7 +20,7 @@ exports.userLogin=async(request,response)=>{
           }   
         }else{
             // -------------------------------------------------------------Need a nav link to register 
-            response.status(401).json({message:"Existing User please Login"})
+            response.status(401).json({message:"Please register"})
         }
         
     } catch (error) {
