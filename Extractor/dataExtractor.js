@@ -7,9 +7,8 @@ document.querySelectorAll('.company-list').forEach((job,index)=>{
    const companyName = job.querySelector('.jobs-comp-name').textContent
    const jobDate = job.querySelector('.job-date').textContent
    const jobLink = job.querySelector("a").getAttribute('href')
-   console.log(index,jobTitle,companyName,jobDate,jobLink);
+   const jobId = jobLink.split('company-jobs/')[1]
    
-    
 })
 
 }
